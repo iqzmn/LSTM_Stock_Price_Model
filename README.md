@@ -1,2 +1,2 @@
 # LSTM_Stock_Price
-Using LSTM Recurrent neural networks to predict security prices on MOEX
+Using LSTM Recurrent Neural Network to predict security prices on MOEX
