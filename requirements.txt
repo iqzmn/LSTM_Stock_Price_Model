@@ -5,7 +5,6 @@ requests
 numpy
 datetime
 plotly
-json
 scikit-learn
 tensorflow
 keras
