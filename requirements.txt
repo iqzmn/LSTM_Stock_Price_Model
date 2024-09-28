@@ -5,7 +5,6 @@ requests
 numpy
 datetime
 plotly
-pickle
 time
 json
 scikit-learn
