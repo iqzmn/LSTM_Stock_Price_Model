@@ -6,6 +6,9 @@
 
 The list of securities can be found here: https://www.moex.com/en/moexboard/instruments-list.aspx
 
+- requirements.txt is for .py file that streamlit demands  
+- requirements2.txt is for .ipynb notebook
+
 ## Model further improvements:
 1. Finding model parameters using: Grid Search, Random Search, Bayesian optimization, and cross-validation to prevent overfitting
 2. Using several securities as historical data for training
