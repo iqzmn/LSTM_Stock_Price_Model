@@ -273,6 +273,9 @@ def add_deviation_bounds(df, initial_spread=0.1, spread_growth_rate=0.08):
 
 #-------------------------end-of-functions--------------------------------#
 
+with st.sidebar:
+    st.title("Info")
+
 st.title("MOEX Stock Price Prediction")
 
 col1, col2, col3,col4 = st.columns(4)
