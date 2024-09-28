@@ -1,4 +1,4 @@
-# The LSTM RNN to predict stock prices on MOEX
+# The LSTM RNN stock prices model
 
 [**Recurrent neural networks (RNNs)**](https://en.wikipedia.org/wiki/Recurrent_neural_network) are a class of artificial neural networks for sequential data processing. One of them is LSTM (Long Short-Term Memory) network.
 
