@@ -294,7 +294,7 @@ plot_stock_df(stock_df, 200, stock_symbol)
 
 st.markdown("### Step 2. Plotting A Prediction Graph")
 col1, col2, col3 = st.columns(3)
-ok = col1.button('Make Prediction', type="primary", use_container_width = True)
+ok = col1.button('Make A Prediction', type="primary", use_container_width = True)
 
 if not ok:
     st.stop()
