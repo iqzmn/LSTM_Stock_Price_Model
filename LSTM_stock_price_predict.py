@@ -240,7 +240,7 @@ def plot_stock_prediction(stdf, prdf, periods_to_predict, window=50, stock_symbo
     st.plotly_chart(fig)
 
 #download model
-with open('C:/Users/Gor/Documents/Python/myapp/LSTM_Stock_Price_Model/LSTM_stock_model.pkl', 'rb') as f:
+with open('LSTM_stock_model.pkl', 'rb') as f:
     load_data = pickle.load(f)
 model = load_data['model']
 
