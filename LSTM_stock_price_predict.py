@@ -278,7 +278,7 @@ with st.sidebar:
 
 st.title("MOEX Stock Price Prediction")
 st.divider()
-st.markdown("### Step 1. Plot A History Graph")
+st.markdown("### Step 1. Plotting A History Graph")
 col1, col2 = st.columns(2)
 stock_symbol = col1.text_input('Input Stock Symbol', placeholder='SBER')
 
@@ -292,7 +292,7 @@ stock_df = dump_to_df(dump_file_name)
 
 plot_stock_df(stock_df, 200, stock_symbol)
 
-st.markdown("### Step 2. Plot A Prediction Graph")
+st.markdown("### Step 2. Plotting A Prediction Graph")
 col1, col2, col3 = st.columns(3)
 ok = col1.button('Make Prediction', type="primary", use_container_width = True)
 
