@@ -240,7 +240,7 @@ def plot_stock_prediction(stdf, prdf, periods_to_predict, window=50, stock_symbo
     st.plotly_chart(fig)
 
 #download model
-with open('LSTM_stock_model.pkl', 'rb') as f:
+with open('C:/Users/Gor/Documents/Python/myapp/LSTM_Stock_Price_Model/LSTM_stock_model.pkl', 'rb') as f:
     load_data = pickle.load(f)
 model = load_data['model']
 
@@ -277,8 +277,9 @@ with st.sidebar:
     st.title("Info")
 
 st.title("MOEX Stock Price Prediction")
-
-col1, col2, col3,col4 = st.columns(4)
+st.divider()
+st.markdown("### Step 1. Plot A History Graph")
+col1, col2 = st.columns(2)
 stock_symbol = col1.text_input('Input Stock Symbol', placeholder='SBER')
 
 if not stock_symbol or not check_security_exists(stock_symbol):
@@ -291,13 +292,21 @@ stock_df = dump_to_df(dump_file_name)
 
 plot_stock_df(stock_df, 200, stock_symbol)
 
-col1, col2, col3, col4 = st.columns(4)
-ok = col1.button('Predict Stock Price')
+st.markdown("### Step 2. Plot A Prediction Graph")
+col1, col2, col3 = st.columns(3)
+ok = col1.button('Make Prediction', type="primary", use_container_width = True)
 
 if not ok:
     st.stop()
 
-#prepare data
+# Initialize progress bar
+progress_text = "Operation in progress. Please wait."
+my_bar = st.progress(10, text=progress_text)
+
+# Step 1: Data preparation (10% progress)
+my_bar.progress(20, text=progress_text)
+
+# Prepare data
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaler.fit(stock_df)
 inputs_data = stock_df[-train_window:].values.reshape(-1, 1)
@@ -305,31 +314,35 @@ inputs_data = scaler.transform(inputs_data)
 X_inputs_test = np.array([inputs_data])
 X_inputs_test = np.reshape(X_inputs_test, (X_inputs_test.shape[0], X_inputs_test.shape[1], 1))
 
+# Step 2: Making predictions (50% progress)
+my_bar.progress(30, text=progress_text)
+
 # Convert predicted data and inverse scale
 predicted_data = make_predictions(periods_to_predict, X_inputs_test)
 predicted_data = scaler.inverse_transform(np.array(predicted_data).reshape(-1, 1))
 
-progress_text = "Operation in progress. Please wait."
-my_bar = st.progress(0, text=progress_text)
-for percent_complete in range(100):
-    time.sleep(0.005)
-    my_bar.progress(percent_complete + 1, text=progress_text)
-time.sleep(1)
-my_bar.empty()
+# Step 3: Create DataFrame and add deviation bounds (80% progress)
+my_bar.progress(80, text=progress_text)
 
 # Create DataFrame with predicted data
 predicted_df = pd.DataFrame(predicted_data, columns=['Price'])
 
 # Set date index and add deviation bounds
-predicted_df = set_date_index(predicted_df, stock_df.index[-1]+timedelta(1))
-
+predicted_df = set_date_index(predicted_df, stock_df.index[-1] + timedelta(1))
 predicted_df = add_deviation_bounds(predicted_df, initial_spread=0.1, spread_growth_rate=0.1)
 
-num_last_preiods = 300
+# Step 4: Plot the data (100% progress)
+my_bar.progress(100, text="Plotting the graph...")
+
+# Display the plot
+num_last_periods = 300
 stdf = stock_df.reset_index()
 prdf = predicted_df.reset_index()
+plot_stock_prediction(stdf[-num_last_periods:], prdf, periods_to_predict, window=50, stock_symbol=stock_symbol)
 
-plot_stock_prediction(stdf[-num_last_preiods:], prdf, periods_to_predict, window=50, stock_symbol=stock_symbol)
+# Clear progress bar
+time.sleep(1)
+my_bar.empty()
 
 st.write('#### Quotes')
 df_table = prdf[['index','Price']]
