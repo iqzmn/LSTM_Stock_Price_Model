@@ -1,4 +1,4 @@
-# LSTM Stock Prices Prediction Model
+# LSTM Stock Price Prediction Model
 
 ![streamlit_view1](images/readme_1.png)
 
